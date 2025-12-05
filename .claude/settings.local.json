@@ -7,7 +7,11 @@
       "Bash(git init:*)",
       "Bash(git add:*)",
       "Bash(git commit -m \"$(cat <<''EOF''\nInitial commit: 小説プロジェクト「時空を統べる者」\n\n- 世界設定（命刻システム、天命院、空白の歴史）\n- キャラクター設定（主人公、十大主星、十二大従星、敵キャラ）\n- プロット（プロローグ〜第五部）\n- 本編（プロローグ3話）\n- ルール・資料\n\n🤖 Generated with [Claude Code](https://claude.com/claude-code)\n\nCo-Authored-By: Claude <noreply@anthropic.com>\nEOF\n)\")",
-      "Bash(git commit:*)"
+      "Bash(git commit:*)",
+      "Bash(del \"c:\\Users\\shink\\Documents\\Projects\\小説\\本編\\第一部\\第2章\\第5話_リンチ.md\")",
+      "Bash(del \"c:\\Users\\shink\\Documents\\Projects\\小説\\本編\\プロローグ\\プロローグ②_覚醒.md\")",
+      "Bash(del \"c:\\Users\\shink\\Documents\\Projects\\小説\\本編\\プロローグ\\プロローグ③_千年の後に.md\")",
+      "Bash(dir /b /s \"c:\\Users\\shink\\Documents\\Projects\\小説\\plot\")"
     ],
     "deny": [],
     "ask": []
