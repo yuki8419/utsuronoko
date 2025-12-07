@@ -24,8 +24,8 @@ function SimpleTaijiLoading() {
         fill="var(--yang)"
       />
       <circle cx="50" cy="50" r="48" fill="none" stroke="var(--earth)" strokeWidth="1" opacity="0.3" />
-      <circle cx="50" cy="26" r="6" fill="var(--yang)" />
-      <circle cx="50" cy="74" r="6" fill="var(--yin)" />
+      <circle cx="50" cy="26" r="6" fill="var(--yin)" />
+      <circle cx="50" cy="74" r="6" fill="var(--yang)" />
     </motion.svg>
   );
 }

@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import dynamic from "next/dynamic";
 import { PageTransitionProvider } from "@/components/effects/PageTransition";
 
@@ -20,12 +21,26 @@ const ParallaxLayers = dynamic(() => import("@/components/effects/ParallaxLayers
 });
 
 export function ClientComponents({ children }: { children?: React.ReactNode }) {
+  const [isMobile, setIsMobile] = useState(true); // デフォルトtrue（SSR対策）
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
+
   return (
     <PageTransitionProvider>
       <LoadingScreen />
       <CustomCursor />
-      <InkFlowEffect />
-      <ParallaxLayers />
+      {/* モバイルでは重いエフェクトを無効化 */}
+      {!isMobile && (
+        <>
+          <InkFlowEffect />
+          <ParallaxLayers />
+        </>
+      )}
       {children}
     </PageTransitionProvider>
   );

@@ -59,10 +59,10 @@ export default function Header() {
                   strokeWidth="2"
                   className="opacity-30 group-hover:opacity-60 transition-opacity duration-300"
                 />
-                {/* 陰中の陽（左上の黒い部分の中の白丸） */}
-                <circle cx="50" cy="26" r="6" fill="var(--yang)" />
-                {/* 陽中の陰（右下の白い部分の中の黒丸） */}
-                <circle cx="50" cy="74" r="6" fill="var(--yin)" />
+                {/* 陽中の陰（上の白い部分の中の黒丸） */}
+                <circle cx="50" cy="26" r="6" fill="var(--yin)" />
+                {/* 陰中の陽（下の黒い部分の中の白丸） */}
+                <circle cx="50" cy="74" r="6" fill="var(--yang)" />
               </svg>
             </div>
             <span className="font-serif text-lg tracking-widest text-yang group-hover:text-earth transition-colors duration-300">

@@ -27,10 +27,10 @@ export default function Footer() {
             />
             {/* 外円（装飾） */}
             <circle cx="50" cy="50" r="48" fill="none" stroke="var(--yang)" strokeWidth="1" />
-            {/* 陰中の陽（左上の黒い部分の中の白丸） */}
-            <circle cx="50" cy="26" r="5" fill="var(--yang)" />
-            {/* 陽中の陰（右下の白い部分の中の黒丸） */}
-            <circle cx="50" cy="74" r="5" fill="var(--yin)" />
+            {/* 陽中の陰（上の白い部分の中の黒丸） */}
+            <circle cx="50" cy="26" r="5" fill="var(--yin)" />
+            {/* 陰中の陽（下の黒い部分の中の白丸） */}
+            <circle cx="50" cy="74" r="5" fill="var(--yang)" />
           </svg>
         </div>
 

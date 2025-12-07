@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useContext, useState, useCallback, ReactNode } from "react";
+import { createContext, useContext, useState, useCallback, useMemo, ReactNode } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useRouter } from "next/navigation";
 
@@ -49,6 +49,22 @@ export function PageTransitionProvider({ children }: { children: ReactNode }) {
   );
 }
 
+// 墨の広がりパターンを事前計算（毎レンダー変わらないように）
+const INK_CIRCLES = Array.from({ length: 8 }, (_, i) => {
+  const angle = (i / 8) * Math.PI * 2;
+  const distanceOffset = [0.2, 0.8, 0.4, 0.6, 0.1, 0.9, 0.3, 0.7][i]; // 固定のランダム風値
+  const distance = 150 + distanceOffset * 50;
+  const radiusOffset = [0.5, 0.2, 0.8, 0.4, 0.6, 0.3, 0.9, 0.1][i];
+  const durationOffset = [0.1, 0.25, 0.05, 0.2, 0.15, 0.28, 0.08, 0.22][i];
+  return {
+    x: 200 + Math.cos(angle) * distance * 0.5,
+    y: 200 + Math.sin(angle) * distance * 0.5,
+    radius: 60 + radiusOffset * 40,
+    duration: 0.5 + durationOffset * 0.3,
+    delay: 0.1 + i * 0.05,
+  };
+});
+
 function InkTransitionOverlay({ onComplete }: { onComplete: () => void }) {
   return (
     <motion.div
@@ -95,28 +111,22 @@ function InkTransitionOverlay({ onComplete }: { onComplete: () => void }) {
               transition={{ duration: 0.6, ease: "easeOut" }}
             />
 
-            {/* 不規則な墨の広がり */}
-            {[...Array(8)].map((_, i) => {
-              const angle = (i / 8) * Math.PI * 2;
-              const distance = 150 + Math.random() * 50;
-              const x = 200 + Math.cos(angle) * distance * 0.5;
-              const y = 200 + Math.sin(angle) * distance * 0.5;
-              return (
-                <motion.circle
-                  key={i}
-                  cx={x}
-                  cy={y}
-                  fill="#0a0a0a"
-                  initial={{ r: 0 }}
-                  animate={{ r: 60 + Math.random() * 40 }}
-                  transition={{
-                    duration: 0.5 + Math.random() * 0.3,
-                    delay: 0.1 + i * 0.05,
-                    ease: "easeOut",
-                  }}
-                />
-              );
-            })}
+            {/* 不規則な墨の広がり（事前計算済み） */}
+            {INK_CIRCLES.map((circle, i) => (
+              <motion.circle
+                key={i}
+                cx={circle.x}
+                cy={circle.y}
+                fill="#0a0a0a"
+                initial={{ r: 0 }}
+                animate={{ r: circle.radius }}
+                transition={{
+                  duration: circle.duration,
+                  delay: circle.delay,
+                  ease: "easeOut",
+                }}
+              />
+            ))}
           </svg>
         </motion.div>
 
@@ -144,8 +154,8 @@ function InkTransitionOverlay({ onComplete }: { onComplete: () => void }) {
               d="M50,2 A48,48 0 0,0 50,98 A24,24 0 0,0 50,50 A24,24 0 0,1 50,2"
               fill="#0a0a0a"
             />
-            <circle cx="50" cy="26" r="6" fill="#0a0a0a" />
-            <circle cx="50" cy="74" r="6" fill="#f5f5f0" />
+            <circle cx="50" cy="26" r="6" fill="#f5f5f0" />
+            <circle cx="50" cy="74" r="6" fill="#0a0a0a" />
           </svg>
         </motion.div>
       </div>
