@@ -1,0 +1,535 @@
+@import "tailwindcss";
+
+/* ========================================
+   陰陽五行 カラーシステム
+   ======================================== */
+
+:root {
+  /* 陰陽 */
+  --yin: #0a0a0a;
+  --yin-light: #1a1a1a;
+  --yang: #f5f5f0;
+  --yang-dark: #e8e4d9;
+
+  /* 五行の色 */
+  --wood: #2d5a4a;    /* 木 - 青龍 */
+  --fire: #c73e3a;    /* 火 - 朱雀 */
+  --earth: #c9a962;   /* 土 - 黄龍 */
+  --metal: #d4d4d4;   /* 金 - 白虎 */
+  --water: #1e3a5f;   /* 水 - 玄武 */
+
+  /* 五行の発光色 */
+  --wood-glow: #4a9a7a;
+  --fire-glow: #ff6b6b;
+  --earth-glow: #ffd700;
+  --metal-glow: #ffffff;
+  --water-glow: #4a7abf;
+
+  /* 基本色 */
+  --background: var(--yin);
+  --foreground: var(--yang);
+  --muted: #888888;
+
+  /* アニメーション */
+  --transition-slow: 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-medium: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-fast: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-yin: var(--yin);
+  --color-yin-light: var(--yin-light);
+  --color-yang: var(--yang);
+  --color-yang-dark: var(--yang-dark);
+  --color-wood: var(--wood);
+  --color-fire: var(--fire);
+  --color-earth: var(--earth);
+  --color-metal: var(--metal);
+  --color-water: var(--water);
+  --color-muted: var(--muted);
+  --font-sans: var(--font-shippori);
+  --font-serif: var(--font-shippori);
+  --font-title: var(--font-title);
+}
+
+/* ========================================
+   基本スタイル
+   ======================================== */
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-serif), "Shippori Mincho", serif;
+  overflow-x: hidden;
+  font-feature-settings: "palt";
+  letter-spacing: 0.02em;
+}
+
+/* セレクションカラー */
+::selection {
+  background: var(--earth);
+  color: var(--yin);
+}
+
+/* スクロールバー */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--yin);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--yin-light);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--muted);
+}
+
+/* ========================================
+   テキストスタイル
+   ======================================== */
+
+.text-gradient-five {
+  background: linear-gradient(
+    90deg,
+    var(--wood) 0%,
+    var(--fire) 25%,
+    var(--earth) 50%,
+    var(--metal) 75%,
+    var(--water) 100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.font-serif {
+  font-family: var(--font-serif), "Shippori Mincho", serif;
+  font-feature-settings: "palt";
+}
+
+/* タイトル用の特別スタイル - ダイナミックな書体 */
+.title-display {
+  font-family: var(--font-title), "Zen Antique Soft", var(--font-serif), "Shippori Mincho", serif;
+  font-weight: 400;
+  letter-spacing: 0.15em;
+  font-feature-settings: "palt";
+  text-shadow:
+    0 0 40px rgba(201, 169, 98, 0.3),
+    0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+/* タイトル文字のグロー効果（ホバー時） */
+.title-display:hover {
+  text-shadow:
+    0 0 60px rgba(201, 169, 98, 0.5),
+    0 0 30px rgba(201, 169, 98, 0.3),
+    0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+/* ========================================
+   アニメーション
+   ======================================== */
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    opacity: 0.5;
+    filter: blur(20px);
+  }
+  50% {
+    opacity: 0.8;
+    filter: blur(30px);
+  }
+}
+
+@keyframes rotate-slow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes ink-spread {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.3;
+  }
+  100% {
+    transform: scale(2);
+    opacity: 0;
+  }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 4s ease-in-out infinite;
+}
+
+.animate-rotate-slow {
+  animation: rotate-slow 60s linear infinite;
+}
+
+/* ========================================
+   ユーティリティ
+   ======================================== */
+
+.noise-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  opacity: 0.03;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  z-index: 9999;
+}
+
+/* フェードイン */
+.fade-in {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* 墨の滲みエフェクト用 */
+.ink-effect {
+  position: relative;
+  overflow: hidden;
+}
+
+.ink-effect::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle, var(--yang) 0%, transparent 70%);
+  transform: translate(-50%, -50%) scale(0);
+  transition: transform 0.6s ease;
+  pointer-events: none;
+}
+
+.ink-effect:hover::before {
+  transform: translate(-50%, -50%) scale(2);
+}
+
+/* ========================================
+   縦書きスタイル
+   ======================================== */
+
+.writing-vertical {
+  writing-mode: vertical-rl;
+  text-orientation: upright;
+}
+
+/* ========================================
+   和紙テクスチャ・光の表現
+   ======================================== */
+
+/* 和紙テクスチャのオーバーレイ */
+.washi-texture {
+  position: relative;
+}
+
+.washi-texture::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.02;
+  background:
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(245, 245, 240, 0.03) 2px,
+      rgba(245, 245, 240, 0.03) 4px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      transparent,
+      transparent 2px,
+      rgba(245, 245, 240, 0.02) 2px,
+      rgba(245, 245, 240, 0.02) 4px
+    );
+}
+
+/* 光の放射エフェクト */
+.light-rays {
+  position: relative;
+  overflow: hidden;
+}
+
+.light-rays::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: conic-gradient(
+    from 0deg at 50% 50%,
+    transparent 0deg,
+    rgba(201, 169, 98, 0.02) 30deg,
+    transparent 60deg,
+    rgba(201, 169, 98, 0.02) 90deg,
+    transparent 120deg,
+    rgba(201, 169, 98, 0.02) 150deg,
+    transparent 180deg,
+    rgba(201, 169, 98, 0.02) 210deg,
+    transparent 240deg,
+    rgba(201, 169, 98, 0.02) 270deg,
+    transparent 300deg,
+    rgba(201, 169, 98, 0.02) 330deg,
+    transparent 360deg
+  );
+  animation: rotate-slow 120s linear infinite;
+  pointer-events: none;
+}
+
+/* グラデーションのグロー効果 */
+@keyframes glow-pulse {
+  0%, 100% {
+    opacity: 0.3;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.6;
+    transform: scale(1.05);
+  }
+}
+
+.glow-effect {
+  position: relative;
+}
+
+.glow-effect::before {
+  content: '';
+  position: absolute;
+  inset: -20px;
+  background: radial-gradient(
+    circle at center,
+    rgba(201, 169, 98, 0.15) 0%,
+    transparent 70%
+  );
+  filter: blur(20px);
+  animation: glow-pulse 4s ease-in-out infinite;
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* 墨の飛沫アニメーション */
+@keyframes ink-splatter {
+  0% {
+    transform: scale(0) rotate(0deg);
+    opacity: 0.8;
+  }
+  50% {
+    opacity: 0.4;
+  }
+  100% {
+    transform: scale(1.5) rotate(180deg);
+    opacity: 0;
+  }
+}
+
+.ink-splatter {
+  animation: ink-splatter 2s ease-out forwards;
+}
+
+/* 光のストリーク（線状の光） */
+@keyframes light-streak {
+  0% {
+    transform: translateX(-100%) skewX(-15deg);
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    transform: translateX(200%) skewX(-15deg);
+    opacity: 0;
+  }
+}
+
+.light-streak {
+  position: relative;
+  overflow: hidden;
+}
+
+.light-streak::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(201, 169, 98, 0.1),
+    transparent
+  );
+  animation: light-streak 8s ease-in-out infinite;
+  pointer-events: none;
+}
+
+/* 五行のグローカラー */
+.glow-wood {
+  box-shadow: 0 0 30px rgba(45, 90, 74, 0.3);
+}
+
+.glow-fire {
+  box-shadow: 0 0 30px rgba(199, 62, 58, 0.3);
+}
+
+.glow-earth {
+  box-shadow: 0 0 30px rgba(201, 169, 98, 0.3);
+}
+
+.glow-metal {
+  box-shadow: 0 0 30px rgba(212, 212, 212, 0.3);
+}
+
+.glow-water {
+  box-shadow: 0 0 30px rgba(30, 58, 95, 0.3);
+}
+
+/* 文字の光彩効果 */
+.text-glow {
+  text-shadow:
+    0 0 10px currentColor,
+    0 0 20px currentColor,
+    0 0 40px currentColor;
+}
+
+.text-glow-subtle {
+  text-shadow:
+    0 0 5px currentColor,
+    0 0 10px currentColor;
+}
+
+/* ガラス風のぼかし効果 */
+.glass-effect {
+  background: rgba(10, 10, 10, 0.6);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(245, 245, 240, 0.05);
+}
+
+/* 繊細なボーダーアニメーション */
+@keyframes border-flow {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.animated-border {
+  position: relative;
+}
+
+.animated-border::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  padding: 1px;
+  border-radius: inherit;
+  background: linear-gradient(
+    90deg,
+    rgba(201, 169, 98, 0.3),
+    rgba(201, 169, 98, 0.1),
+    rgba(201, 169, 98, 0.3),
+    rgba(201, 169, 98, 0.1),
+    rgba(201, 169, 98, 0.3)
+  );
+  background-size: 200% 100%;
+  animation: border-flow 4s linear infinite;
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+/* ========================================
+   レスポンシブ最適化
+   ======================================== */
+
+/* モバイルでの重いエフェクト軽減 */
+@media (max-width: 768px) {
+  .light-rays::before {
+    display: none;
+  }
+
+  .animate-rotate-slow {
+    animation: none;
+  }
+
+  /* パララックス効果を軽減 */
+  .will-change-transform {
+    will-change: auto;
+  }
+}
+
+/* プリファレンス：減モーション */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .animate-float,
+  .animate-pulse-glow,
+  .animate-rotate-slow {
+    animation: none;
+  }
+}

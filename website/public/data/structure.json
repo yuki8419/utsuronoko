@@ -1,0 +1,74 @@
+{
+  "parts": [
+    {
+      "id": "part1",
+      "title": "第一部「日常の終焉」",
+      "chapters": [
+        {
+          "id": "chapter1",
+          "title": "第1章",
+          "number": 1,
+          "episodes": [
+            {
+              "id": "ep1",
+              "title": "平穏な日々",
+              "number": 1
+            },
+            {
+              "id": "ep2",
+              "title": "師との稽古",
+              "number": 2
+            },
+            {
+              "id": "ep3",
+              "title": "小さな幸福",
+              "number": 3
+            },
+            {
+              "id": "ep4",
+              "title": "呼び出し",
+              "number": 4
+            },
+            {
+              "id": "ep5",
+              "title": "封印解除",
+              "number": 5
+            }
+          ]
+        },
+        {
+          "id": "chapter2",
+          "title": "第2章",
+          "number": 2,
+          "episodes": [
+            {
+              "id": "ep1",
+              "title": "発覚",
+              "number": 1
+            },
+            {
+              "id": "ep2",
+              "title": "断罪",
+              "number": 2
+            },
+            {
+              "id": "ep3",
+              "title": "処刑",
+              "number": 3
+            },
+            {
+              "id": "ep4",
+              "title": "追放",
+              "number": 4
+            },
+            {
+              "id": "ep5",
+              "title": "襲撃",
+              "number": 5
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
