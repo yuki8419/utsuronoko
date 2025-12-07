@@ -1,8 +1,8 @@
 "use client";
 
-import { createContext, useContext, useState, useCallback, useMemo, ReactNode } from "react";
+import { createContext, useContext, useState, useCallback, useEffect, useMemo, ReactNode } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 
 interface TransitionContextType {
   startTransition: (href: string) => void;
@@ -20,20 +20,30 @@ export function PageTransitionProvider({ children }: { children: ReactNode }) {
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [targetHref, setTargetHref] = useState("");
   const router = useRouter();
+  const pathname = usePathname();
 
   const startTransition = useCallback((href: string) => {
     setTargetHref(href);
     setIsTransitioning(true);
   }, []);
 
+  // パスが変わったらトランジションを終了
+  useEffect(() => {
+    if (isTransitioning && targetHref) {
+      // 新しいページに到達したらオーバーレイを消す
+      const targetPath = targetHref.split("?")[0]; // クエリパラメータを除去
+      if (pathname === targetPath || pathname.startsWith(targetPath)) {
+        setTimeout(() => {
+          setIsTransitioning(false);
+          setTargetHref("");
+        }, 100); // 少し待ってから消す
+      }
+    }
+  }, [pathname, isTransitioning, targetHref]);
+
   const handleAnimationComplete = useCallback(() => {
     if (targetHref) {
       router.push(targetHref);
-      // 遷移後少し待ってからフェードアウト
-      setTimeout(() => {
-        setIsTransitioning(false);
-        setTargetHref("");
-      }, 300);
     }
   }, [targetHref, router]);
 
