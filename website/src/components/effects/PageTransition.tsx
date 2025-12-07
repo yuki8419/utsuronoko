@@ -138,6 +138,14 @@ function InkTransitionOverlay({ onComplete }: { onComplete: () => void }) {
           transition={{ delay: 0.3, duration: 0.6, ease: "easeOut" }}
         >
           <svg viewBox="0 0 100 100" className="w-16 h-16 md:w-24 md:h-24">
+            {/* 背景円（黒） */}
+            <circle cx="50" cy="50" r="48" fill="#0a0a0a" />
+            {/* 陽（白）のS字 */}
+            <path
+              d="M50 2 A48 48 0 0 1 50 98 A24 24 0 0 1 50 50 A24 24 0 0 0 50 2"
+              fill="#f5f5f0"
+            />
+            {/* 外円（装飾） */}
             <circle
               cx="50"
               cy="50"
@@ -146,14 +154,7 @@ function InkTransitionOverlay({ onComplete }: { onComplete: () => void }) {
               stroke="rgba(201, 169, 98, 0.5)"
               strokeWidth="1"
             />
-            <path
-              d="M50,2 A48,48 0 0,1 50,98 A24,24 0 0,1 50,50 A24,24 0 0,0 50,2"
-              fill="#f5f5f0"
-            />
-            <path
-              d="M50,2 A48,48 0 0,0 50,98 A24,24 0 0,0 50,50 A24,24 0 0,1 50,2"
-              fill="#0a0a0a"
-            />
+            {/* 上に白、下に黒 */}
             <circle cx="50" cy="26" r="6" fill="#f5f5f0" />
             <circle cx="50" cy="74" r="6" fill="#0a0a0a" />
           </svg>
