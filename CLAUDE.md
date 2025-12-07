@@ -168,5 +168,28 @@ characters/十大主星.md の冒頭【早見表】を開いて確認するこ�
 │   ├── 整合性ルール.md
 │   ├── 整合性チェックリスト.md ← 執筆後チェック用
 │   └── プロンプト集.md ← AI依頼用テンプレート
+├── website/           ← 公式サイト（Next.js）
 └── 資料/              ← 参考資料
 ```
+
+---
+
+## Webサイト反映ルール
+
+**本編フォルダ（本編/）のファイルを編集・追加・削除した場合、必ず以下を実行すること：**
+
+```bash
+# 1. 小説データをJSONに変換
+node website/scripts/generate-novel-data.js
+
+# 2. 変更をコミット＆プッシュ
+git add .
+git commit -m "update: 小説を更新"
+git push origin main
+```
+
+これによりVercelが自動デプロイし、公式サイトに反映される。
+
+**注意事項：**
+- `website/public/data/structure.json` と `episodes.json` が更新される
+- 現在は第1章・第2章のみ公開設定（`generate-novel-data.js` の `PUBLISHED_CHAPTERS` で制御）
